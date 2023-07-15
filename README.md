@@ -8,6 +8,7 @@ palera1n booter for windows / s8003
 - overlay.bin
 
 ## Usage
+0. Switch apple mobile device driver with libusbK
 1. openra1n.exe
 2. python3 boot.py
 
