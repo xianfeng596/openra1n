@@ -36,6 +36,7 @@
 #define DFU_CLR_STATUS (4)
 #define MAX_BLOCK_SZ (0x50)
 #define DFU_MODE_PID (0x1227)
+#define PONGO_MODE_PID (0x4141)
 #define DFU_STATE_MANIFEST (7)
 #define EP0_MAX_PACKET_SZ (0x40)
 #define DFU_FILE_SUFFIX_LEN (16)
@@ -90,6 +91,15 @@ extern unsigned payloads_yolo_s8000_bin_len, payloads_yolo_s8001_bin_len, payloa
 extern uint8_t payloads_Pongo_bin[], payloads_shellcode_bin[];
 extern unsigned payloads_Pongo_bin_len, payloads_shellcode_bin_len;
 
+extern uint8_t payloads_pongoOS_shellcode_bin[];
+extern unsigned payloads_pongoOS_shellcode_bin_len;
+extern uint8_t payloads_checkra1n_kpf_ploosh_bin[];
+extern unsigned payloads_checkra1n_kpf_ploosh_bin_len;
+extern uint8_t payloads_overlay_bin[];
+extern unsigned payloads_overlay_bin_len;
+extern uint8_t payloads_ramdisk_bin[];
+extern unsigned payloads_ramdisk_bin_len;
+
 #include <payloads/yolo_s8000.bin.h>
 #include <payloads/yolo_s8001.bin.h>
 #include <payloads/yolo_s8003.bin.h>
@@ -101,6 +111,11 @@ extern unsigned payloads_Pongo_bin_len, payloads_shellcode_bin_len;
 
 #include <payloads/Pongo.bin.h>
 #include <payloads/shellcode.bin.h>
+
+#include <payloads/pongoOS_shellcode.bin.h>
+#include <payloads/overlay.bin.h>
+#include <payloads/ramdisk.bin.h>
+#include <payloads/checkra1n-kpf-ploosh.bin.h>
 
 static uint16_t cpid;
 static uint32_t payload_dest_armv7;
@@ -959,26 +974,9 @@ static void compress_pongo(void *out, size_t *out_len) {
 static void checkm8_boot_pongo(usb_handle_t *handle) {
 	transfer_ret_t transfer_ret;
 	LOG_INFO("Booting pongoOS");
-	LOG_DEBUG("Compressing pongoOS");
-	LOG_DEBUG("Appending shellcode to the top of pongoOS (512 bytes)");
-	void *shellcode = malloc(512);
-	memcpy(shellcode, payloads_shellcode_bin, payloads_shellcode_bin_len);
-	size_t out_len = payloads_Pongo_bin_len;
-	void *out = malloc(out_len);
-	compress_pongo(out, &out_len);
-	LOG_DEBUG("Compressed pongoOS from %u to %zu bytes", payloads_Pongo_bin_len, out_len);
-	void *tmp = malloc(out_len + 512);
-	memcpy(tmp, shellcode, 512);
-	memcpy(tmp + 512, out, out_len);
-	free(out);
-	out = tmp;
-	out_len += 512;
-	free(shellcode);
-	LOG_DEBUG("Setting the compressed size into the shellcode");
-	uint32_t* size = (uint32_t*)(out + 0x1fc);
-	LOG_DEBUG("size = 0x%" PRIX32 "", *size);
-	*size = out_len - 512;
-	LOG_DEBUG("size = 0x%" PRIX32 "", *size);
+    void *out = malloc(payloads_pongoOS_shellcode_bin_len);
+    memcpy(out, payloads_pongoOS_shellcode_bin, payloads_pongoOS_shellcode_bin_len);
+    size_t out_len = payloads_pongoOS_shellcode_bin_len;
 	LOG_DEBUG("Reconnecting to device");
 	init_usb_handle(handle, APPLE_VID, DFU_MODE_PID);
 	LOG_DEBUG("Waiting for device to be ready");
@@ -1059,5 +1057,6 @@ int main(int argc, char **argv) {
 	gaster_checkm8(&handle);
 	sleep_ms(3000);
 	checkm8_boot_pongo(&handle);
+    
 	return ret;
 }

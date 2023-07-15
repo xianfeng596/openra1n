@@ -115,7 +115,7 @@
 #endif
 
 #define LZ4_STATIC_LINKING_ONLY  /* LZ4_DISTANCE_MAX */
-#include <lz4/lz4.h>
+#include "../include/lz4/lz4.h"
 /* see also "memory routines" below */
 
 
