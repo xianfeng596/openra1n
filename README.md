@@ -1,4 +1,4 @@
-# openra1n
+# openra1n (UNOFFICIAL)
 UNOFFICIAL palera1n booter for windows / s8003
 
 ## Dumped payload from palera1n v2.0.0 beta 7 
