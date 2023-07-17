@@ -8,9 +8,10 @@ UNOFFICIAL palera1n booter for windows / s8003
 - overlay.bin
 
 ## Usage
-0. Switch apple mobile device driver with libusbK
-1. openra1n.exe
-2. python3 boot.py
+1. Switch apple mobile device driver with libusbK
+2. openra1n.exe
+3. Install libusbK driver again for Pongo USB Device 
+4. python3 boot.py
 
 ## Attributions
 - [openra1n](https://github.com/mineek/openra1n) - Origin of the project
