@@ -1,7 +1,7 @@
 # openra1n (UNOFFICIAL)
 UNOFFICIAL palera1n booter for windows / s8003
 
-## Dumped payload from palera1n v2.0.0 beta 7 
+## Dumped payload from palera1n v2.0.0 beta 8
 - pongoOS_shellcode(already compressed).bin 
 - checkra1n-kpf-ploosh.bin
 - ramdisk.bin
