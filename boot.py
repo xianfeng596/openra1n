@@ -47,13 +47,9 @@ dev.write(2,kpf,1000000)
 dev.ctrl_transfer(0x21, 4, 0, 0, 0)
 dev.ctrl_transfer(0x21, 3, 0, 0, "modload\n")
 
-#kpf_flags 0x1 / checkra1n_flags 0x0 / palera1n_flags 0x0
+#palera1n_flags 0x4000000
 dev.ctrl_transfer(0x21, 4, 0, 0, 0)
-dev.ctrl_transfer(0x21, 3, 0, 0, "kpf_flags 0x1\n")
-dev.ctrl_transfer(0x21, 4, 0, 0, 0)
-dev.ctrl_transfer(0x21, 3, 0, 0, "checkra1n_flags 0x0\n")
-dev.ctrl_transfer(0x21, 4, 0, 0, 0)
-dev.ctrl_transfer(0x21, 3, 0, 0, "palera1n_flags 0x0\n")
+dev.ctrl_transfer(0x21, 3, 0, 0, "palera1n_flags 0x4000000\n")
 
 #Send ramdisk / ramdisk
 dev.ctrl_transfer(0x21, 2, 0, 0, 0)
