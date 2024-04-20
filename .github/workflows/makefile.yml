@@ -9,13 +9,13 @@ on:
 jobs:
   build:
 
-    runs-on: macos-lasest
+    runs-on: ubuntu-lasest
 
     steps:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: make
+      run: make payloads
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
