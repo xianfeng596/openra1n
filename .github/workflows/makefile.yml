@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-lasest
+    runs-on:macos-lasest
 
     steps:
     - uses: actions/checkout@v3
