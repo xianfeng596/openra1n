@@ -9,9 +9,9 @@ on:
 jobs:
   build:
 
-    runs-on:macos-lasest
+    runs-on: macos-lasest
 
-    steps:
+    steps: 
     - uses: actions/checkout@v3
 
     - name: Install dependencies
